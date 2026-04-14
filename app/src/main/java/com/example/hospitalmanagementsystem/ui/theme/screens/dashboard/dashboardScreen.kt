@@ -1,6 +1,7 @@
 package com.example.hospitalmanagementsystem.ui.theme.screens.dashboard
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,6 +49,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.hospitalmanagementsystem.R
 import com.example.hospitalmanagementsystem.data.AuthViewModel
+import com.example.hospitalmanagementsystem.navigation.ROUTE_ADD_PATIENT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -142,7 +144,8 @@ fun DashboardScreen(navController: NavHostController) {
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 8.dp)
+                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -172,7 +175,8 @@ fun DashboardScreen(navController: NavHostController) {
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 8.dp)
+                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -202,7 +206,8 @@ fun DashboardScreen(navController: NavHostController) {
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 8.dp)
+                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -232,7 +237,8 @@ fun DashboardScreen(navController: NavHostController) {
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 8.dp)
+                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
