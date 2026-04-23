@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.hospitalmanagementsystem.models.UserModel
-import com.example.hospitalmanagementsystem.navigation.ROUTE_DASHBOARD
-import com.example.hospitalmanagementsystem.navigation.ROUTE_LOGIN
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -26,7 +25,7 @@ class AuthViewModel:ViewModel() {
             Toast.makeText(context,"Password do not match",Toast.LENGTH_LONG).show()
             return
         }
-        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{
                 task ->
             if (task.isSuccessful){
                 val userId = auth.currentUser?.uid ?: ""
@@ -46,7 +45,7 @@ class AuthViewModel:ViewModel() {
             if (task.isSuccessful){
                 Toast.makeText(context,"User Registered successfully",
                     Toast.LENGTH_LONG).show()
-                navController.navigate(ROUTE_LOGIN){
+                navController.navigate("login"){
                     popUpTo(0)
                 }
             }else{
@@ -66,7 +65,7 @@ class AuthViewModel:ViewModel() {
                 task ->
             if (task.isSuccessful){
                 Toast.makeText(context,"Login Successful",Toast.LENGTH_LONG).show()
-                navController.navigate(ROUTE_DASHBOARD){
+                navController.navigate("dashboard"){
                     popUpTo(0)
                 }
             }else{
@@ -87,8 +86,8 @@ class AuthViewModel:ViewModel() {
     fun logout(navController: NavController,context: Context) {
         mAuth.signOut()
         Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
-        navController.navigate(ROUTE_LOGIN) {
-            popUpTo(ROUTE_DASHBOARD) { inclusive = true }
+        navController.navigate("login") {
+            popUpTo("dashboard") { inclusive = true }
     }
     }
 

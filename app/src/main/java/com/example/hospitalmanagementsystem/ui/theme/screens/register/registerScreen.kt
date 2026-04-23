@@ -44,6 +44,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.hospitalmanagementsystem.R
 import com.example.hospitalmanagementsystem.data.AuthViewModel
 
+
 @Composable
 fun RegisterScreen(navController: NavController){
     var username by remember { mutableStateOf("") }
@@ -146,5 +147,5 @@ fun RegisterScreen(navController: NavController){
 @Preview(showBackground= true, showSystemUi = true)
 @Composable
 fun RegisterScreenPreview(){
-    RegisterScreen(rememberNavController())
+        RegisterScreen(rememberNavController())
 }

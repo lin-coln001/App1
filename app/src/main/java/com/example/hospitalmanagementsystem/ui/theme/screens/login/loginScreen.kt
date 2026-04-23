@@ -41,7 +41,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.hospitalmanagementsystem.R
 import com.example.hospitalmanagementsystem.data.AuthViewModel
-import com.example.hospitalmanagementsystem.ui.theme.screens.register.RegisterScreen
+import com.example.hospitalmanagementsystem.ui.theme.screens.login.LoginScreen
+
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -118,5 +119,5 @@ fun LoginScreen(navController: NavController) {
 @Preview(showBackground= true, showSystemUi = true)
 @Composable
 fun LoginScreenPreview(){
-    LoginScreen(rememberNavController())
+        LoginScreen(rememberNavController())
 }

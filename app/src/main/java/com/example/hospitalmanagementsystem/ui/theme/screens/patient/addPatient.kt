@@ -10,9 +10,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
@@ -41,47 +44,64 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.hospitalmanagementsystem.data.PatientViewModel
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddPatientScreen(NavController: NavController){
-    var name by remember { mutableStateOf("")}
-    var age by remember { mutableStateOf("")}
-    var phone by remember { mutableStateOf("")}
-    var illness by remember { mutableStateOf("")}
-    var imageUri by remember { mutableStateOf<Uri?>(null)}
+fun AddPatientScreen(NavController: NavController) {
+    var name by remember { mutableStateOf("") }
+    var age by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var illness by remember { mutableStateOf("") }
+    var gender by remember { mutableStateOf("") }
+    var date_of_visit by remember { mutableStateOf("") }
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ){uri: Uri? ->
+    ) { uri: Uri? ->
         imageUri = uri
     }
-    val PatientViewModel: PatientViewModel = viewModel()
+
+    val patientViewModel: PatientViewModel = viewModel()
     val context = LocalContext.current
 
-    Scaffold(topBar={
-        TopAppBar(title = {Text(text = "Add Patient")},
-            colors= TopAppBarDefaults.topAppBarColors(
-                containerColor=Color.Blue,
-                titleContentColor=Color.White))
-    })
-    {padding ->
+    // Create the scroll state
+    val scrollState = rememberScrollState()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Add Patient") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Blue,
+                    titleContentColor = Color.White
+                )
+            )
+        }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center)
-        {
-            Box(modifier = Modifier
-                .size(120.dp)
-                .align(Alignment.CenterHorizontally),
-                contentAlignment = Alignment.Center)
-            {
-                if(imageUri != null){
-                    Image(painter = rememberAsyncImagePainter(imageUri),
+                .padding(16.dp)
+                .verticalScroll(scrollState), // ENABLE SCROLLING HERE
+            verticalArrangement = Arrangement.Top, // Changed to Top so it scrolls naturally
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(120.dp)
+                    .align(Alignment.CenterHorizontally),
+                contentAlignment = Alignment.Center
+            ) {
+                if (imageUri != null) {
+                    Image(
+                        painter = rememberAsyncImagePainter(imageUri),
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop)
-                } else{
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
                     Icon(
                         Icons.Default.Person,
                         contentDescription = null,
@@ -90,52 +110,80 @@ fun AddPatientScreen(NavController: NavController){
                 }
             }
 
-        Button(onClick = {launcher.launch("image/*")},
-            modifier=Modifier.align(Alignment.CenterHorizontally))
-        {Text(text = "Select Image")}
-        OutlinedTextField(
-            value = name,
-            onValueChange = {name = it},
-            label = {Text(text = "Patient Name")},
-            modifier=Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = age,
-            onValueChange = {age = it},
-            label = {Text(text = "Age")},
-            modifier=Modifier.fillMaxWidth()
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(8.dp))
 
-        )
-        OutlinedTextField(
-            value = phone,
-            onValueChange = {phone = it},
-            label = {Text(text = "Phone")},
-            modifier = Modifier.fillMaxWidth()
+            Button(onClick = { launcher.launch("image/*") }) {
+                Text(text = "Select Image")
+            }
 
-        )
-        OutlinedTextField(
-            value = illness,
-            onValueChange = {illness = it},
-            label = {Text(text = "Illness")},
-            modifier = Modifier.fillMaxWidth()
-        )
-        Button(onClick = {PatientViewModel.uploadPatient(
-            imageUri,
-            name,
-            age,
-            phone,
-            illness,
-            context,
-            NavController
-        ) },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(10.dp)) {
-            Text(text = "save patient")
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(16.dp))
 
-    }}
-}}
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text(text = "Patient Name") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = age,
+                onValueChange = { age = it },
+                label = { Text(text = "Age") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = phone,
+                onValueChange = { phone = it },
+                label = { Text(text = "Phone") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = gender,
+                onValueChange = { gender = it },
+                label = { Text(text = "Gender") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = illness,
+                onValueChange = { illness = it },
+                label = { Text(text = "Illness/Diagnosis") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = date_of_visit,
+                onValueChange = { date_of_visit = it },
+                label = { Text(text = "Date of Visit") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = {
+                    patientViewModel.uploadPatient(
+                        imageUri,
+                        name,
+                        age,
+                        phone,
+                        illness,
+                        gender,
+                        date_of_visit,
+                        context,
+                        NavController
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text(text = "Save Patient")
+            }
+
+            // Extra spacer at the bottom so the last field isn't touching the edge
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(20.dp))
+        }
+    }
+}
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun AddPatientScreenPreview(){
-    AddPatientScreen(rememberNavController())}
+        AddPatientScreen(rememberNavController())}
 

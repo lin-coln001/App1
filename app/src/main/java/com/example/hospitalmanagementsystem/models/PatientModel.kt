@@ -6,6 +6,7 @@ data class PatientModel(
     var age: String?= null,
     var phone: String?= null,
     var illness: String?= null,
-    var imageUrl: String?= null
-
+    var imageUrl: String?= null,
+    var gender: String?= null,
+    var date_of_visit: String?=null
 )

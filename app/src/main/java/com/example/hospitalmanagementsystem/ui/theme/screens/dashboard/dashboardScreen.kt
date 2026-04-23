@@ -49,7 +49,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.hospitalmanagementsystem.R
 import com.example.hospitalmanagementsystem.data.AuthViewModel
-import com.example.hospitalmanagementsystem.navigation.ROUTE_ADD_PATIENT
+
+import com.example.hospitalmanagementsystem.ui.theme.screens.dashboard.DashboardScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -144,8 +145,7 @@ fun DashboardScreen(navController: NavHostController) {
                 onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
+                    .padding(vertical = 8.dp) ,
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -172,11 +172,10 @@ fun DashboardScreen(navController: NavHostController) {
                 }
             }
             Card(
-                onClick = { },
+                onClick = {  navController.navigate("patientlist")},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
+                    .padding(vertical = 8.dp),
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -194,20 +193,20 @@ fun DashboardScreen(navController: NavHostController) {
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
                         Text(
-                            text = "Add Patient",
+                            text = "view patient list",
                             fontSize = 18.sp,
                             color = Color.Black
                         )
-                        Text(text="Register new patient details", fontSize=14.sp,color = Color.Gray)
+                        Text(text="view patient list", fontSize=14.sp,color = Color.Gray)
                     }
                 }
             }
             Card(
-                onClick = { },
+                onClick = {navController.navigate("add") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
-                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
+                    .clickable { navController.navigate("add") },
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -218,7 +217,7 @@ fun DashboardScreen(navController: NavHostController) {
                 ) {
                     Icon(
                         Icons.Filled.Person,
-                        contentDescription = "Add Patient",
+                        contentDescription = "Add new",
                         tint = Color(0xFF004040),
                         modifier = Modifier.size(40.dp)
                     )
@@ -229,7 +228,7 @@ fun DashboardScreen(navController: NavHostController) {
                             fontSize = 18.sp,
                             color = Color.Black
                         )
-                        Text(text="Register new patient details", fontSize=14.sp,color = Color.Gray)
+                        Text(text="Add new", fontSize=14.sp,color = Color.Gray)
                     }
                 }
             }
@@ -238,7 +237,7 @@ fun DashboardScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
-                    .clickable { navController.navigate(ROUTE_ADD_PATIENT) },
+                    .clickable { navController.navigate("add") },
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1)),
                 elevation = CardDefaults.cardElevation(6.dp),
                 shape = RoundedCornerShape(16.dp)
@@ -271,5 +270,5 @@ fun DashboardScreen(navController: NavHostController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DashboardScreenPreview(){
-    DashboardScreen(navController = rememberNavController())
+      DashboardScreen(navController = rememberNavController())
 }
